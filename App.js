@@ -6,110 +6,66 @@
  * @flow strict-local
  */
 
-import React,{useEffect} from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import React from 'react';
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from 'react-native-reanimated';
+import {Page} from './src/components/Page';
+import PanGestureComp from './src/components/PanGestureComp';
+import InstaPicLike from './src/components/InstaPicLike';
+import {ScrollView} from 'react-native-gesture-handler';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+const WORDS = ["What's", 'up', 'react native', 'devs?'];
 
-const App: () => Node = () => {
-  useEffect(()=>{
-    SplashScreen.hide()
-  },[])
-  const isDarkMode = useColorScheme() === 'dark';
+export default function App() {
+  const translateX = useSharedValue(0);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translateX.value = event.contentOffset.x;
+  });
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    // <Animated.ScrollView
+    //   onScroll={scrollHandler}
+    //   pagingEnabled
+    //   scrollEventThrottle={16}
+    //   horizontal
+    // >
+    //   {WORDS.map((title, index) => {
+    //     return (
+    //       <Page
+    //         key={index}
+    //         title={title}
+    //         translateX={translateX}
+    //         index={index}
+    //       />
+    //     );
+    //   })}
+    // </Animated.ScrollView>
+
+    // <PanGestureComp/>
+    <ScrollView>
+      <InstaPicLike
+        imageSource={require('./src/assets/image.jpeg')}
+        caption={'This is caption'}
+      />
+      <InstaPicLike
+        imageSource={require('./src/assets/img55.jpg')}
+        caption={'This is caption'}
+      />
+      <InstaPicLike
+        imageSource={require('./src/assets/img66.jpg')}
+        caption={'This is caption'}
+      />
+      <InstaPicLike
+        imageSource={require('./src/assets/img22.jpg')}
+        caption={'This is caption'}
+      />
+      <InstaPicLike
+        imageSource={require('./src/assets/img88.jpg')}
+        caption={'This is caption'}
+      />
+    </ScrollView>
   );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+}
