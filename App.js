@@ -20,12 +20,13 @@ const WORDS = ["What's", 'up', 'react native', 'devs?'];
 
 export default function App() {
   const translateX = useSharedValue(0);
-
-  const scrollHandler = useAnimatedScrollHandler(event => {
-    translateX.value = event.contentOffset.x;
-  });
+  // this function is for page Component
+  // const scrollHandler = useAnimatedScrollHandler(event => {
+  //   translateX.value = event.contentOffset.x;
+  // });
 
   return (
+    // this code is for Page Components
     // <Animated.ScrollView
     //   onScroll={scrollHandler}
     //   pagingEnabled
@@ -43,7 +44,6 @@ export default function App() {
     //     );
     //   })}
     // </Animated.ScrollView>
-
     // <PanGestureComp/>
     <ScrollView>
       <InstaPicLike
