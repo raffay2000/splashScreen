@@ -48,6 +48,11 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
+        jcenter() {
+            content {
+                includeGroup("com.google.android.exoplayer")
+            }
+        }
         google()
         maven { url 'https://www.jitpack.io' }
     }

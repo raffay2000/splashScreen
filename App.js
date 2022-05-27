@@ -5,40 +5,55 @@
  * @format
  * @flow strict-local
  */
-
 import React,{useEffect,useState} from 'react';
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import { StatusBar } from 'react-native';
+import { StyleSheet,View,Button ,Dimensions,SafeAreaView,Text,TouchableOpacity} from 'react-native';
+
+import TrackPlayer, {
+  Capability,
+  Event,
+  RepeatMode,
+  State,
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 import SplashScreen from 'react-native-splash-screen';
-import {Page} from './src/components/Page';
-import PanGestureComp from './src/components/PanGestureComp';
-import InstaPicLike from './src/components/InstaPicLike';
-import {ScrollView} from 'react-native-gesture-handler';
-import AnimatedSplash from "react-native-animated-splash-screen";
+// import {Page} from './src/components/Page';
+// import PanGestureComp from './src/components/PanGestureComp';
+// import InstaPicLike from './src/components/InstaPicLike';
+// import {ScrollView} from 'react-native-gesture-handler';
+// import AnimatedSplash from "react-native-animated-splash-screen";
+import { DefaultTheme,Provider as PaperProvider} from 'react-native-paper';
+import { musicData } from './src/components/musicData';
+import Slider from '@react-native-community/slider';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MusicPlayer from './src/screens/MusicPlayer';
+const {width, height} = Dimensions.get('window');
 
-const WORDS = ["What's", 'up', 'react native', 'devs?'];
+// const WORDS = ["What's", 'up', 'react native', 'devs?'];//FOR ANIMATION
 
-export default function App() {
 
-  const translateX = useSharedValue(0);
-  // this function is for page Component
-  const scrollHandler = useAnimatedScrollHandler(event => {
-    translateX.value = event.contentOffset.x;
-  });
+export default function App(){
+  // const translateX = useSharedValue(0);
+  // // this function is for page Component
+  // const scrollHandler = useAnimatedScrollHandler(event => {
+  //   translateX.value = event.contentOffset.x;
+  // });
 
-  const [isLoaded, setIsLoaded] = useState(false)
   useEffect(()=>{
     SplashScreen.hide()
     // setTimeout(() => {
     //   setIsLoaded(true)
     // }, 1500);
-  })
+  },[])
   return (
-    // // this code is for Page Components
-    <Animated.ScrollView
+    /* this code is for Page Components */
+    /* <Animated.ScrollView
       onScroll={scrollHandler}
       pagingEnabled
       scrollEventThrottle={16}
@@ -54,7 +69,7 @@ export default function App() {
           />
         );
       })}
-    </Animated.ScrollView>
+    </Animated.ScrollView> */
     // // this is panGestureComponent
     // <PanGestureComp/>
     // // this is instagram components
@@ -90,5 +105,12 @@ export default function App() {
     //   />
     // </ScrollView>
     // </AnimatedSplash>
+  <>
+  <MusicPlayer/>
+  </>
   );
 }
+
+const styles = StyleSheet.create({
+  
+});
